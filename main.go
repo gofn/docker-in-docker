@@ -5,6 +5,7 @@ import (
 	"log"
 
 	docker "github.com/fsouza/go-dockerclient"
+	uuid "github.com/satori/go.uuid"
 )
 
 func main() {
@@ -14,7 +15,7 @@ func main() {
 		log.Fatal(err)
 	}
 	container, err := client.CreateContainer(docker.CreateContainerOptions{
-		Name: "Hello",
+		Name: fmt.Sprintf("gofn-%s", uuid.NewV4().String()),
 		Config: &docker.Config{
 			Image:     "debian:8",
 			StdinOnce: true,
